@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
             'role' => 'admin',
             'gender' => 'male',
             'profile' => '',
-            'password' => bcrypt('admin123654')
+            'password' => bcrypt('wingssports@2025')
         ]);
 
     }

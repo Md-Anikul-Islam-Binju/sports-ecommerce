@@ -21,14 +21,6 @@
                 @endphp
                 <div class="product_item">
                     <div class="product_img">
-
-{{--                        @if($newArrivalProductsData->discount_amount!=null)--}}
-{{--                        <div class="marks">--}}
-{{--                            <span class="mark">Save: {{$newArrivalProductsData->amount-$newArrivalProductsData->discount_amount}}৳</span>--}}
-{{--                        </div>--}}
-{{--                        @endif--}}
-
-
                         @php
                           $user = Auth::user();
                         @endphp
@@ -117,7 +109,9 @@
                 </div>
             </div>
             @if(count($newArrivalProducts) > 6)
-                <a href="{{ route('frontend.all.product') }}" class="btn btn-success">See More</a>
+                <div class="see_more_button" data-aos="fade-up">
+                    <a href="{{ route('frontend.all.product') }}">See More</a>
+                </div>
             @endif
 
         </div>
@@ -129,52 +123,20 @@
      <a href="{{route('frontend.customize.product')}}">
         <div class="get_our_customize" data-aos="fade-up">
             <img
-                src="{{URL::to('frontend/images/customized_jersey_banner.png')}}"
+                src="{{URL::to('frontend/images/get-our-customize.png')}}"
                 class="img-fluid"
                 draggable="false"
                 alt=""
             />
-            <div class="get_our_customize_content_area">
-                <div class="heading_style">
-                    <h2>Get Our</h2>
-                    <h3>Customized</h3>
-                    <h4>Sportswear</h4>
-                </div>
-                <p>
-                    We are a custom suportswear design and manufacturer in
-                    <strong>Bangladesh</strong>. We guarantee a seamless
-                    production process and unhold unwavering standards of
-                    quality. If you want our premium quality sportswear for your
-                    sports team, sports event or corporate event.
-                </p>
-                <h5>
-                    Please get in touch with us:
-                    <a href="tel:+8801619426800">01619-426800</a>
-                    (Whatsapp)
-                </h5>
-            </div>
         </div>
         <!-- Bulk Order -->
         <div class="bulk_order_jersey" data-aos="fade-up">
             <img
-                src="{{URL::to('frontend/images/bulk_order_banner.png')}}"
+                src="{{URL::to('frontend/images/bulk-order.png')}}"
                 class="img-fluid"
                 draggable="false"
                 alt=""
             />
-            <div class="bulk_order_content_area">
-                <div class="bulk_order_heading">
-                    <h2>Bulk</h2>
-                    <h3>Order</h3>
-                </div>
-                <p>
-                    We take bulk orders from our designed jersey designs with
-                    your player name and jersey number. You can order a minimum
-                    of <strong>15 pieces</strong>. If you order in bulk, you
-                    will <strong>get 20% less</strong> than the price of single
-                    piece jersey.
-                </p>
-            </div>
         </div>
      </a>
     </div>
@@ -199,11 +161,6 @@
                 @endphp
                 <div class="product_item">
                     <div class="product_img">
-{{--                        @if($mostPopularProductsData->discount_amount!=null)--}}
-{{--                        <div class="marks">--}}
-{{--                            <span class="mark">Save: {{$mostPopularProductsData->amount-$mostPopularProductsData->discount_amount}}৳</span>--}}
-{{--                        </div>--}}
-{{--                        @endif--}}
                        @php
                          $user = Auth::user();
                        @endphp

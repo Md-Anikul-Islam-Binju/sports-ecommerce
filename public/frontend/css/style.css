@@ -177,6 +177,7 @@ ol {
 }
 .expandright:focus {
     padding: 0 16px;
+    border-radius: 5px;
 }
 /* ! Table */
 .table-bordered thead tr {
@@ -551,6 +552,23 @@ ol {
 }
 .product_img img {
     border-radius: 20px;
+}
+.see_more_button {
+    text-align: center;
+    margin-top: 20px;
+}
+.see_more_button a {
+    background-color: var(--color-secondary);
+    color: #fff;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+.see_more_button a:hover {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
 }
 /*--------------------------------------------------------------
 # Get Our Customized Products

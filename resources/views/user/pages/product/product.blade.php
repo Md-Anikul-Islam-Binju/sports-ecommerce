@@ -73,12 +73,11 @@
 							<div class="col-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100}}">
 								<div class="product_item">
 									<div class="product_img">
-										@if($product->discount_amount!=null)
-                                        <div class="marks">
-                                            <span class="mark">Save: {{$product->amount-$product->discount_amount}}৳</span>
-                                        </div>
-                                        @endif
-
+{{--										@if($product->discount_amount!=null)--}}
+{{--                                        <div class="marks">--}}
+{{--                                            <span class="mark">Save: {{$product->amount-$product->discount_amount}}৳</span>--}}
+{{--                                        </div>--}}
+{{--                                        @endif--}}
 
                                        @php
                                         $user = Auth::user();
@@ -131,43 +130,43 @@
 							</div>
 						@endforeach
 						<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-                                                                                        <div class="modal-dialog modal-dialog-centered">
-                                                                                            <div class="modal-content">
-                                                                                                <div class="modal-header">
-                                                                                                    <h5 class="modal-title" id="loginModalLabel">User Login</h5>
-                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                                </div>
-                                                                                                <div class="modal-body">
-                                                                                                    <form method="POST" action="{{ route('user.login.post') }}"> @csrf
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="loginModalLabel">User Login</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="{{ route('user.login.post') }}"> @csrf
 
-                                                                                                        <div class="row">
-                                                                                                            <div class="col-12">
-                                                                                                                <div class="form-group">
-                                                                                                                    <label for="email">Email</label>
-                                                                                                                    <input type="email" class="form-control" id="email" required name="email" placeholder="Enter your email*" />
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <div class="col-12">
-                                                                                                                <div class="form-group">
-                                                                                                                    <label for="password">Password</label>
-                                                                                                                    <input type="password" class="form-control" id="password" required name="password" placeholder="Enter your password*" />
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <div class="col-12">
-                                                                                                                <div class="form-group">
-                                                                                                                    <button type="submit" class="btn_style w-100"> Login </button>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <div class="col-12 text-center">
-                                                                                                                <p> Don't have an account? <a href="{{ route('user.register') }}" class="text-decoration-underline">Register</a>
-                                                                                                                </p>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </form>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="email">Email</label>
+                                                        <input type="email" class="form-control" id="email" required name="email" placeholder="Enter your email*" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="password">Password</label>
+                                                        <input type="password" class="form-control" id="password" required name="password" placeholder="Enter your password*" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn_style w-100"> Login </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 text-center">
+                                                    <p> Don't have an account? <a href="{{ route('user.register') }}" class="text-decoration-underline">Register</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 					</div>
 
 

@@ -16,8 +16,8 @@ class FrontendController extends Controller
             ->whereNotNull('available_stock')
             ->where('available_stock', '>', 0)
             ->latest()
+            ->limit(16)
             ->get();
-
 //        $mostPopularProducts = Product::where('is_popular', 1)
 //            ->where('status', 1)
 //            ->whereNotNull('available_stock')
@@ -27,32 +27,23 @@ class FrontendController extends Controller
 
         $manufacture = Manufacture::Where('status', 1)->get();
         $partner = Partner::Where('status', 1)->get();
-
-
         $userWishlist = [];
         if (Auth::check()) {
             $userWishlist = Wishlist::where('user_id', Auth::id())->pluck('product_id')->toArray();
         }
         $productReviews = ProductReview::where('status', 1)->with('user')->get();
-
-
-
-         $mostPurchasedProducts = OrderItem::select('product_id')
+        $mostPurchasedProducts = OrderItem::select('product_id')
                 ->selectRaw('SUM(quantity) as total_quantity')
                 ->groupBy('product_id')
                 ->orderBy('total_quantity', 'desc')
                 ->get();
-
-         $mostPopularProducts = Product::whereIn('id', $mostPurchasedProducts->pluck('product_id'))
+        $mostPopularProducts = Product::whereIn('id', $mostPurchasedProducts->pluck('product_id'))
              ->where('status', 1)
              ->whereNotNull('available_stock')
              ->where('available_stock', '>', 0)
              ->latest()
+             ->limit(8)
              ->get();
-
-         //dd($mostPopularProducts);
-
-
         return view('user.dashboard',compact('newArrivalProducts','mostPopularProducts','manufacture','partner','userWishlist','productReviews'));
     }
 }

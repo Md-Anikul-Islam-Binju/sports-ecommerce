@@ -235,6 +235,10 @@
         >
             @yield('content')
             <!-- Follow us on -->
+
+            @php
+             $siteSetting = App\Models\SiteSetting::first();
+            @endphp
             <section class="follow_us_section text-center d-print-none">
                 <div class="container">
                     <div class="row">
@@ -243,17 +247,17 @@
                                 <h2>Follow us on</h2>
                                 <ul>
                                     <li data-aos="fade-up">
-                                        <a href="#" target="_blank">
+                                        <a href="{{$siteSetting->facebook_link ? $siteSetting->facebook_link:''}}" target="_blank">
                                             <i class="bi bi-facebook"></i>
                                         </a>
                                     </li>
                                     <li data-aos="fade-up" data-aos-delay="200">
-                                        <a href="#" target="_blank">
+                                        <a href="{{$siteSetting->instagram_link ? $siteSetting->instagram_link:''}}" target="_blank">
                                             <i class="bi bi-instagram"></i>
                                         </a>
                                     </li>
                                     <li data-aos="fade-up" data-aos-delay="400">
-                                        <a href="#" target="_blank">
+                                        <a href="{{$siteSetting->whatsapp_link ? $siteSetting->whatsapp_link:''}}" target="_blank">
                                             <i class="bi bi-whatsapp"></i>
                                         </a>
                                     </li>
@@ -266,9 +270,6 @@
         </main>
 
         <!-- Footer -->
-       @php
-          $siteSetting = App\Models\SiteSetting::first();
-       @endphp
        <footer class="site_footer_wrapper d-print-none">
             <div class="container">
                 <div class="row align-items-center">

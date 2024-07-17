@@ -20,11 +20,11 @@
 							<div class="col-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100}}">
 								<div class="product_item">
 									<div class="product_img">
-										@if($product->discount_amount!=null)
-                                        <div class="marks">
-                                            <span class="mark">Save: {{$product->amount-$product->discount_amount}}৳</span>
-                                        </div>
-                                        @endif
+{{--										@if($product->discount_amount!=null)--}}
+{{--                                        <div class="marks">--}}
+{{--                                            <span class="mark">Save: {{$product->amount-$product->discount_amount}}৳</span>--}}
+{{--                                        </div>--}}
+{{--                                        @endif--}}
 
                                        @php
                                         $user = Auth::user();

@@ -22,11 +22,11 @@
                 <div class="product_item">
                     <div class="product_img">
 
-                        @if($newArrivalProductsData->discount_amount!=null)
-                        <div class="marks">
-                            <span class="mark">Save: {{$newArrivalProductsData->amount-$newArrivalProductsData->discount_amount}}৳</span>
-                        </div>
-                        @endif
+{{--                        @if($newArrivalProductsData->discount_amount!=null)--}}
+{{--                        <div class="marks">--}}
+{{--                            <span class="mark">Save: {{$newArrivalProductsData->amount-$newArrivalProductsData->discount_amount}}৳</span>--}}
+{{--                        </div>--}}
+{{--                        @endif--}}
 
 
                         @php
@@ -116,6 +116,10 @@
                     </div>
                 </div>
             </div>
+            @if(count($newArrivalProducts) > 6)
+                <a href="{{ route('frontend.all.product') }}" class="btn btn-success">See More</a>
+            @endif
+
         </div>
     </div>
 </section>
@@ -195,15 +199,11 @@
                 @endphp
                 <div class="product_item">
                     <div class="product_img">
-                        @if($mostPopularProductsData->discount_amount!=null)
-                        <div class="marks">
-                            <span class="mark">Save: {{$mostPopularProductsData->amount-$mostPopularProductsData->discount_amount}}৳</span>
-                        </div>
-                        @endif
-
-
-
-
+{{--                        @if($mostPopularProductsData->discount_amount!=null)--}}
+{{--                        <div class="marks">--}}
+{{--                            <span class="mark">Save: {{$mostPopularProductsData->amount-$mostPopularProductsData->discount_amount}}৳</span>--}}
+{{--                        </div>--}}
+{{--                        @endif--}}
                        @php
                          $user = Auth::user();
                        @endphp
@@ -220,9 +220,6 @@
                             </a>
                         </div>
                        @endif
-
-
-
                         <a
                             href="{{route('frontend.product.details',$mostPopularProductsData->id)}}"
                         >
@@ -251,15 +248,13 @@
                                 </div>
                             </div>
                             @endif
-
-
-
                         </a>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
+
     </div>
 </section>
 <!-- Official Manufacture -->

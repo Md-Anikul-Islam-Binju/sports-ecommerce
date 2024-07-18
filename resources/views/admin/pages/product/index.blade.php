@@ -110,6 +110,12 @@
             padding: 0;
             line-height: 1;
         }
+        .dropzoneWrapperEdit {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
 
     </style>
     <div class="row">
@@ -274,21 +280,27 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="mb-3">
                                                             <label>Images</label>
-                                                            <div id="dropzoneWrapperEdit">
+                                                            <div id="dropzoneWrapperEdit{{$productData->id}}"  class="dropzoneWrapperEdit">
                                                                 <i class="h1 text-muted ri-upload-cloud-2-line"></i><br>
                                                                 <span>Drag and drop Product images</span>
-                                                                <input type="file" name="image[]" id="image-input-edit" multiple accept="image/*" style="display: none;">
+                                                                <input type="file" name="image[]" id="image-input-edit{{$productData->id}}" multiple accept="image/*" style="display: none;">
                                                             </div>
-                                                            <div id="image-preview-container-edit"></div>
+                                                            <div id="image-preview-container-edit{{$productData->id}}">
+                                                                @foreach (json_decode($productData->image, true) as $image)
+                                                                    <div class="image-preview">
+                                                                        <img src="{{ asset('images/product/' . $image) }}" alt="Product Image" class="img-preview">
+                                                                        <div class="remove-preview" data-filename="{{ $image }}"><i class="ri-close-line"></i></div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <input type="hidden" name="deleted_images" id="deleted-images-edit{{$productData->id}}" value="[]">
 
                                                 <div class="row">
                                                     <div class="col-12">
@@ -542,81 +554,170 @@
         </div>
     </div>
 
+{{--<script>--}}
+{{--        document.addEventListener('DOMContentLoaded', function() {--}}
+{{--            initializeImageUpload('dropzoneWrapperAdd', 'image-input-add', 'image-preview-container-add');--}}
+{{--            initializeImageUpload('dropzoneWrapperEdit', 'image-input-edit', 'image-preview-container-edit');--}}
+{{--        });--}}
+
+{{--        function initializeImageUpload(wrapperId, inputId, previewContainerId) {--}}
+{{--            const dropzoneWrapper = document.getElementById(wrapperId);--}}
+{{--            const imageInput = document.getElementById(inputId);--}}
+{{--            const previewContainer = document.getElementById(previewContainerId);--}}
+
+{{--            dropzoneWrapper.addEventListener('click', () => imageInput.click());--}}
+{{--            dropzoneWrapper.addEventListener('dragover', handleDragOver);--}}
+{{--            dropzoneWrapper.addEventListener('dragleave', handleDragLeave);--}}
+{{--            dropzoneWrapper.addEventListener('drop', (event) => handleDrop(event, imageInput));--}}
+{{--            imageInput.addEventListener('change', handleImageUpload);--}}
+
+{{--            function handleDragOver(event) {--}}
+{{--                event.preventDefault();--}}
+{{--                dropzoneWrapper.style.border = '2px dashed #999';--}}
+{{--            }--}}
+
+{{--            function handleDragLeave() {--}}
+{{--                dropzoneWrapper.style.border = '2px dashed #ddd';--}}
+{{--            }--}}
+
+{{--            function handleDrop(event, input) {--}}
+{{--                event.preventDefault();--}}
+{{--                dropzoneWrapper.style.border = '2px dashed #ddd';--}}
+{{--                handleImageUpload({target: input});--}}
+{{--            }--}}
+
+{{--            function handleImageUpload(event) {--}}
+{{--                const files = event.target.files || event.dataTransfer.files;--}}
+
+{{--                for (const file of files) {--}}
+{{--                    if (file.type.startsWith('image/')) {--}}
+{{--                        const reader = new FileReader();--}}
+
+{{--                        reader.onload = function(e) {--}}
+{{--                            const imageUrl = e.target.result;--}}
+{{--                            createImagePreview(imageUrl, file);--}}
+{{--                        };--}}
+
+{{--                        reader.readAsDataURL(file);--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            }--}}
+
+{{--            function createImagePreview(imageUrl, file) {--}}
+{{--                const imagePreview = document.createElement('div');--}}
+{{--                imagePreview.classList.add('image-preview');--}}
+
+{{--                const imgElement = document.createElement('img');--}}
+{{--                imgElement.src = imageUrl;--}}
+{{--                imgElement.alt = file.name;--}}
+{{--                imgElement.classList.add('img-preview');--}}
+
+{{--                const removeButton = document.createElement('div');--}}
+{{--                removeButton.classList.add('remove-preview');--}}
+{{--                removeButton.innerHTML = '<i class="ri-close-line"></i>';--}}
+
+{{--                removeButton.addEventListener('click', function() {--}}
+{{--                    imagePreview.remove();--}}
+{{--                });--}}
+
+{{--                imagePreview.appendChild(imgElement);--}}
+{{--                imagePreview.appendChild(removeButton);--}}
+{{--                previewContainer.appendChild(imagePreview);--}}
+{{--            }--}}
+{{--        }--}}
+
+{{--</script>--}}
+
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeImageUpload('dropzoneWrapperAdd', 'image-input-add', 'image-preview-container-add');
-            initializeImageUpload('dropzoneWrapperEdit', 'image-input-edit', 'image-preview-container-edit');
+    document.addEventListener('DOMContentLoaded', function() {
+        @foreach ($products as $productData)
+            initializeImageUpload('dropzoneWrapperEdit{{$productData->id}}', 'image-input-edit{{$productData->id}}', 'image-preview-container-edit{{$productData->id}}', 'deleted-images-edit{{$productData->id}}');
+        @endforeach
+
+        initializeImageUpload('dropzoneWrapperAdd', 'image-input-add', 'image-preview-container-add');
+    });
+    function initializeImageUpload(wrapperId, inputId, previewContainerId, deletedImagesInputId = null) {
+        const dropzoneWrapper = document.getElementById(wrapperId);
+        const imageInput = document.getElementById(inputId);
+        const previewContainer = document.getElementById(previewContainerId);
+        const deletedImagesInput = deletedImagesInputId ? document.getElementById(deletedImagesInputId) : null;
+        dropzoneWrapper.addEventListener('click', () => imageInput.click());
+        dropzoneWrapper.addEventListener('dragover', handleDragOver);
+        dropzoneWrapper.addEventListener('dragleave', handleDragLeave);
+        dropzoneWrapper.addEventListener('drop', (event) => handleDrop(event, imageInput));
+        imageInput.addEventListener('change', handleImageUpload);
+
+        previewContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-preview') || event.target.parentElement.classList.contains('remove-preview')) {
+                const removeButton = event.target.closest('.remove-preview');
+                const imagePreview = removeButton.closest('.image-preview');
+                const filename = removeButton.getAttribute('data-filename');
+                if (deletedImagesInput) {
+                    const deletedImages = JSON.parse(deletedImagesInput.value);
+                    deletedImages.push(filename);
+                    deletedImagesInput.value = JSON.stringify(deletedImages);
+                }
+                imagePreview.remove();
+            }
         });
 
-        function initializeImageUpload(wrapperId, inputId, previewContainerId) {
-            const dropzoneWrapper = document.getElementById(wrapperId);
-            const imageInput = document.getElementById(inputId);
-            const previewContainer = document.getElementById(previewContainerId);
-
-            dropzoneWrapper.addEventListener('click', () => imageInput.click());
-            dropzoneWrapper.addEventListener('dragover', handleDragOver);
-            dropzoneWrapper.addEventListener('dragleave', handleDragLeave);
-            dropzoneWrapper.addEventListener('drop', (event) => handleDrop(event, imageInput));
-            imageInput.addEventListener('change', handleImageUpload);
-
-            function handleDragOver(event) {
-                event.preventDefault();
-                dropzoneWrapper.style.border = '2px dashed #999';
-            }
-
-            function handleDragLeave() {
-                dropzoneWrapper.style.border = '2px dashed #ddd';
-            }
-
-            function handleDrop(event, input) {
-                event.preventDefault();
-                dropzoneWrapper.style.border = '2px dashed #ddd';
-                handleImageUpload({target: input});
-            }
-
-            function handleImageUpload(event) {
-                const files = event.target.files || event.dataTransfer.files;
-
-                for (const file of files) {
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-
-                        reader.onload = function(e) {
-                            const imageUrl = e.target.result;
-                            createImagePreview(imageUrl, file);
-                        };
-
-                        reader.readAsDataURL(file);
-                    }
-                }
-            }
-
-            function createImagePreview(imageUrl, file) {
-                const imagePreview = document.createElement('div');
-                imagePreview.classList.add('image-preview');
-
-                const imgElement = document.createElement('img');
-                imgElement.src = imageUrl;
-                imgElement.alt = file.name;
-                imgElement.classList.add('img-preview');
-
-                const removeButton = document.createElement('div');
-                removeButton.classList.add('remove-preview');
-                removeButton.innerHTML = '<i class="ri-close-line"></i>';
-
-                removeButton.addEventListener('click', function() {
-                    imagePreview.remove();
-                });
-
-                imagePreview.appendChild(imgElement);
-                imagePreview.appendChild(removeButton);
-                previewContainer.appendChild(imagePreview);
-            }
+        function handleDragOver(event) {
+            event.preventDefault();
+            dropzoneWrapper.style.border = '2px dashed #999';
         }
 
+        function handleDragLeave() {
+            dropzoneWrapper.style.border = '2px dashed #ddd';
+        }
+
+        function handleDrop(event, input) {
+            event.preventDefault();
+            dropzoneWrapper.style.border = '2px dashed #ddd';
+            handleImageUpload({target: input});
+        }
+
+        function handleImageUpload(event) {
+            const files = event.target.files || event.dataTransfer.files;
+
+            for (const file of files) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        const imageUrl = e.target.result;
+                        createImagePreview(imageUrl, file);
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+        function createImagePreview(imageUrl, file) {
+            const imagePreview = document.createElement('div');
+            imagePreview.classList.add('image-preview');
+
+            const imgElement = document.createElement('img');
+            imgElement.src = imageUrl;
+            imgElement.alt = file.name;
+            imgElement.classList.add('img-preview');
+
+            const removeButton = document.createElement('div');
+            removeButton.classList.add('remove-preview');
+            removeButton.innerHTML = '<i class="ri-close-line"></i>';
+
+            removeButton.addEventListener('click', function() {
+                imagePreview.remove();
+            });
+
+            imagePreview.appendChild(imgElement);
+            imagePreview.appendChild(removeButton);
+            previewContainer.appendChild(imagePreview);
+        }
+    }
 </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         function loadSubCategories(categoryId, subCategorySelectId) {

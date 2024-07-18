@@ -90,6 +90,7 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+
         try {
             $request->validate([
                 'category_id' => 'required',
@@ -103,6 +104,8 @@ class ProductController extends Controller
             ]);
             $product = Product::findOrFail($id);
             $imagePaths = json_decode($product->image, true) ?? [];
+
+
             if ($request->hasFile('image')) {
                 foreach ($request->file('image') as $imageFile) {
                     $imageName = time() . '_' . uniqid() . '.' . $imageFile->extension();
@@ -110,6 +113,7 @@ class ProductController extends Controller
                     $imagePaths[] = $imageName;
                 }
             }
+
             $product->update([
                 'category_id' => $request->category_id,
                 'sub_category_id' => $request->sub_category_id,
@@ -124,7 +128,8 @@ class ProductController extends Controller
                 'is_new_arrival' => $request->is_new_arrival,
                 'is_popular' => $request->is_popular,
                 'is_customized' => $request->is_customized,
-                'image' => json_encode($imagePaths),
+                //'image' => json_encode($imagePaths),
+                'image' => json_encode(array_values($imagePaths)),
                 'tags' => $request->tags ? json_encode(explode(',', $request->tags)) : null,
             ]);
             Toastr::success('Product updated successfully', 'Success');

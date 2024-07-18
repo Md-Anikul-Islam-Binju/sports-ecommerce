@@ -86,6 +86,31 @@
             box-shadow: none;
         }
 
+
+
+        .image-preview {
+            margin-bottom: 10px;
+        }
+
+        .img-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .img-preview {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .remove-preview {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 5px;
+            padding: 0;
+            line-height: 1;
+        }
+
     </style>
     <div class="row">
         <div class="col-12">
@@ -517,7 +542,7 @@
         </div>
     </div>
 
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', function() {
             initializeImageUpload('dropzoneWrapperAdd', 'image-input-add', 'image-preview-container-add');
             initializeImageUpload('dropzoneWrapperEdit', 'image-input-edit', 'image-preview-container-edit');
@@ -589,9 +614,9 @@
             }
         }
 
-    </script>
+</script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         function loadSubCategories(categoryId, subCategorySelectId) {

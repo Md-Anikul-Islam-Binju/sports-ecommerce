@@ -90,6 +90,7 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+       // dd($request->all());
         try {
             $request->validate([
                 'category_id' => 'required',
@@ -104,6 +105,7 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $imagePaths = json_decode($product->image, true) ?? [];
 
+            // Update images
             if ($request->hasFile('image')) {
                 foreach ($request->file('image') as $imageFile) {
                     $imageName = time() . '_' . uniqid() . '.' . $imageFile->extension();
@@ -112,6 +114,17 @@ class ProductController extends Controller
                 }
             }
 
+            // Remove deleted images
+            if ($request->has('deleted_images')) {
+                $deletedImages = json_decode($request->deleted_images, true);
+                $imagePaths = array_diff($imagePaths, $deletedImages);
+                foreach ($deletedImages as $deletedImage) {
+                    $imagePath = public_path('images/product/' . $deletedImage);
+                    if (!empty($deletedImage) && file_exists($imagePath) && is_file($imagePath)) {
+                        unlink($imagePath);
+                    }
+                }
+            }
             $product->update([
                 'category_id' => $request->category_id,
                 'sub_category_id' => $request->sub_category_id,

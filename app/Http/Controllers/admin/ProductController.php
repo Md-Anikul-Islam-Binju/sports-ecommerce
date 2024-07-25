@@ -90,7 +90,6 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-
         try {
             $request->validate([
                 'category_id' => 'required',
@@ -104,7 +103,6 @@ class ProductController extends Controller
             ]);
             $product = Product::findOrFail($id);
             $imagePaths = json_decode($product->image, true) ?? [];
-
 
             if ($request->hasFile('image')) {
                 foreach ($request->file('image') as $imageFile) {

@@ -99,11 +99,14 @@ class CartController extends Controller
 
        public function checkout(Request $request)
        {
-//           if (!Auth::check()) {
-//               return redirect()->route('user.login');
-//           }
            $cart = Session::get('cart', []);
            $authUser = Auth::user();
            return view('user.pages.checkout.checkout', compact('cart', 'authUser'));
+       }
+
+       public function checkoutAsGust(Request $request)
+       {
+            $cart = Session::get('cart', []);
+            return view('user.pages.checkout.checkoutAsGust', compact('cart'));
        }
 }

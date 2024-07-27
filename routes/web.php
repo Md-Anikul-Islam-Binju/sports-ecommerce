@@ -40,6 +40,12 @@ Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.u
 Route::get('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.item.remove');
 Route::get('/checkout/order', [CartController::class, 'checkout'])->name('checkout.order');
 
+//Guest Order
+Route::get('/checkout-as-gust/order', [CartController::class, 'checkoutAsGust'])->name('checkout.as.gust.order');
+Route::post('/checkout-as-gust', [OrderController::class, 'placeGuestOrder'])->name('order.place.as.gust');
+Route::get('/order/success/gust/{order}/{password}', [OrderController::class, 'guestOrderSuccess'])->name('order.success.as.gust');
+
+
 
 //user login
 Route::get('/user/login', [UserController::class, 'userLogin'])->name('user.login');

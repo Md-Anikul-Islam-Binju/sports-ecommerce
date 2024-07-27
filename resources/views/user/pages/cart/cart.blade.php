@@ -101,12 +101,18 @@
                             $user = Auth::user();
                         @endphp
 
+
+
+
+
                         @if($user)
                             <div class="pull-right">
                                 <a href="{{ route('checkout.order') }}" class="btn_style">Checkout</a>
                             </div>
                         @else
+
                             <div class="pull-right">
+                                <a href="{{route('checkout.as.gust.order')}}" class="btn_style" style="background-color: red">Checkout as Gust</a>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn_style">Checkout</button>
                             </div>
                         @endif

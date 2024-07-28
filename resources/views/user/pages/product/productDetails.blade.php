@@ -190,11 +190,11 @@
                     @endphp
 					<div class="product_item">
 						<div class="product_img">
-                            @if($relatedProductsData->discount_amount!=null)
-                            <div class="marks">
-                                <span class="mark">Save: {{$relatedProductsData->amount-$relatedProductsData->discount_amount}}৳</span>
-                            </div>
-                            @endif
+{{--                            @if($relatedProductsData->discount_amount!=null)--}}
+{{--                            <div class="marks">--}}
+{{--                                <span class="mark">Save: {{$relatedProductsData->amount-$relatedProductsData->discount_amount}}৳</span>--}}
+{{--                            </div>--}}
+{{--                            @endif--}}
 
                            @php
                             $user = Auth::user();

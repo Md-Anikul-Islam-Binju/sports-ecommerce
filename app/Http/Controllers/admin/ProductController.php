@@ -175,7 +175,8 @@ class ProductController extends Controller
     public function reviewList()
     {
         $review = ProductReview::with('product','user')->latest()->get();
-        return view('admin.pages.product.review', compact('review'));
+        $product = Product::latest()->get();
+        return view('admin.pages.product.review', compact('review','product'));
     }
 
     public function reviewStatusUpdate(Request $request, $id)

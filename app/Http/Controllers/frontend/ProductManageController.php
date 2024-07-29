@@ -5,7 +5,9 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductReview;use App\Models\Wishlist;use Illuminate\Http\Request;
+use App\Models\ProductReview;
+use App\Models\SiteSetting;
+use App\Models\Wishlist;use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;use function Ramsey\Uuid\v1;
 
 class ProductManageController extends Controller
@@ -59,18 +61,19 @@ class ProductManageController extends Controller
             $userWishlist = Wishlist::where('user_id', Auth::id())->pluck('product_id')->toArray();
         }
         $productReviews = ProductReview::where('status', 1)->with('user')->get();
-        return view('user.pages.product.productDetails',compact('product','relatedProducts','userWishlist','productReviews'));
+        $siteSetting = SiteSetting::first();
+        return view('user.pages.product.productDetails',compact('product','relatedProducts','userWishlist','productReviews','siteSetting'));
 
     }
 
-    public function customizeProduct()
+    public function bulkProduct()
     {
-        $products = Product::where('is_customized',1)->paginate(16);
+        $products = Product::where('status',1)->paginate(16);
         $userWishlist = [];
         if (Auth::check()) {
             $userWishlist = Wishlist::where('user_id', Auth::id())->pluck('product_id')->toArray();
         }
-        return view('user.pages.product.customizeProduct',compact('products','userWishlist'));
+        return view('user.pages.product.bulkProduct',compact('products','userWishlist'));
     }
 
 

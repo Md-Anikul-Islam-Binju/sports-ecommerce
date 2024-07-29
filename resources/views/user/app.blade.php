@@ -363,7 +363,7 @@
                                                                 'user.terms.condition'
                                                             )
                                                         }}"
-                                                        >Terms & Condition</a
+                                                        >Terms & Conditions</a
                                                     >
                                                 </li>
                                                 <li>

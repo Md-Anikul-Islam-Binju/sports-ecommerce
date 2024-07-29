@@ -118,21 +118,24 @@
     </div>
 </section>
 <!-- Get Our Customize and Bulk Order Product -->
+@if(!empty($siteSetting))
 <section class="get_our_customize_wrapper">
     <div class="container">
-     <a href="{{route('frontend.customize.product')}}">
+        <a href="{{$siteSetting->customize_link	 ? $siteSetting->customize_link	:''}}">
         <div class="get_our_customize" data-aos="fade-up">
             <img
-                src="{{URL::to('frontend/images/get-our-customize.png')}}"
+                src="{{asset($siteSetting? $siteSetting->customize_logo:'' )}}"
                 class="img-fluid"
                 draggable="false"
                 alt=""
             />
         </div>
+        </a>
         <!-- Bulk Order -->
+        <a href="{{route('frontend.bulk.product')}}">
         <div class="bulk_order_jersey" data-aos="fade-up">
             <img
-                src="{{URL::to('frontend/images/bulk-order.png')}}"
+                src="{{asset($siteSetting? $siteSetting->bulk_order_logo:'' )}}"
                 class="img-fluid"
                 draggable="false"
                 alt=""
@@ -141,6 +144,7 @@
      </a>
     </div>
 </section>
+@endif
 <!-- Most Popular Products -->
 <section class="new_arrival_product_wrap most_popular_wrap">
     <div class="container">

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Manufacture;use App\Models\OrderItem;use App\Models\Partner;use App\Models\Product;
-use App\Models\ProductReview;use App\Models\Wishlist;use Illuminate\Http\Request;
+use App\Models\ProductReview;
+use App\Models\SiteSetting;
+use App\Models\Wishlist;use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;use function Ramsey\Uuid\v1;
 
 class FrontendController extends Controller
@@ -44,6 +46,8 @@ class FrontendController extends Controller
              ->latest()
              ->limit(8)
              ->get();
-        return view('user.dashboard',compact('newArrivalProducts','mostPopularProducts','manufacture','partner','userWishlist','productReviews'));
+
+        $siteSetting = SiteSetting::first();
+        return view('user.dashboard',compact('newArrivalProducts','mostPopularProducts','manufacture','partner','userWishlist','productReviews','siteSetting'));
     }
 }

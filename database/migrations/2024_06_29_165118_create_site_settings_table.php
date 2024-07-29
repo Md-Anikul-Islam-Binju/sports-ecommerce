@@ -30,6 +30,9 @@ return new class extends Migration
                 $table->string('instagram_link')->nullable();
                 $table->string('youtube_link')->nullable();
                 $table->string('whatsapp_link')->nullable();
+                $table->string('customize_logo')->nullable();
+                $table->string('customize_link')->nullable();
+                $table->string('bulk_order_logo')->nullable();
             $table->timestamps();
         });
     }

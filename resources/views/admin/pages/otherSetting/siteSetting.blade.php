@@ -130,10 +130,44 @@
                                                placeholder="Whatsapp Link">
                                     </div>
 
+
+                                    <div class="mb-3 col-md-4">
+                                        <label for="customize_link" class="form-label">Site Customize Link</label>
+                                        <input type="text" class="form-control" name="customize_link" value="{{$siteSettings?$siteSettings->customize_link:''}}"
+                                               placeholder="Enter Name">
+                                    </div>
+
+                                    <div class="mb-3 col-md-4">
+                                        <label for="customize_logo" class="form-label">Site Customize Logo</label>
+                                        <input type="file" class="form-control" name="customize_logo" value="{{$siteSettings?$siteSettings->customize_logo:''}}"
+                                               placeholder="Enter Logo">
+                                        @if($siteSettings? $siteSettings->customize_logo:'')
+                                            <img src="{{asset($siteSettings? $siteSettings->customize_logo:'' )}}" alt="Current Image" class="mt-2" style="max-width: 50px;">
+                                        @endif
+                                    </div>
+
+                                    <div class="mb-3 col-md-4">
+                                        <label for="bulk_order_logo" class="form-label">Site Bulk Order Logo</label>
+                                        <input type="file" class="form-control" name="bulk_order_logo" value="{{$siteSettings?$siteSettings->bulk_order_logo:''}}"
+                                               placeholder="Enter Logo">
+                                        @if($siteSettings? $siteSettings->bulk_order_logo:'')
+                                            <img src="{{asset($siteSettings? $siteSettings->bulk_order_logo:'' )}}" alt="Current Image" class="mt-2" style="max-width: 50px;">
+                                        @endif
+                                    </div>
+
+
+
+
+
                                     <div class="mb-3 col-md-12">
                                         <label for="linkedin_link" class="form-label">Meta Description</label>
                                         <textarea class="form-control" name="meta_description" rows="5" placeholder="Enter the Description">{{ strip_tags($siteSettings?$siteSettings->details:'') }}</textarea>
                                     </div>
+
+
+
+
+
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>

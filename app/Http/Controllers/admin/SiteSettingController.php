@@ -33,6 +33,9 @@ class SiteSettingController extends Controller
                 'linkedin_link' => 'nullable|url',
                 'instagram_link' => 'nullable|url',
                 'youtube_link' => 'nullable|url',
+                'customize_logo' => 'nullable',
+                'customize_link' => 'nullable',
+                'bulk_order_logo' => 'nullable',
             ];
 
             // Validate the request data
@@ -45,10 +48,10 @@ class SiteSettingController extends Controller
             // Check if the setting with the provided ID exists
             if ($id) {
                 $setting = SiteSetting::findOrFail($id);
-                $setting->update($request->except(['favicon', 'logo', 'site_preview_image'])); // Exclude image fields from update
+                $setting->update($request->except(['favicon', 'logo', 'site_preview_image','customize_logo','bulk_order_logo'])); // Exclude image fields from update
             } else {
                 // If no ID provided, create a new setting
-                $setting = new SiteSetting($request->except(['favicon', 'logo', 'site_preview_image'])); // Exclude image fields from creation
+                $setting = new SiteSetting($request->except(['favicon', 'logo', 'site_preview_image','customize_logo','bulk_order_logo'])); // Exclude image fields from creation
             }
 
             // Handle favicon upload
@@ -71,6 +74,23 @@ class SiteSettingController extends Controller
                 $request->file('site_preview_image')->move(public_path('images/site_preview_image'), $previewName);
                 $setting->site_preview_image = 'images/site_preview_image/'.$previewName;
             }
+
+
+            // Handle customize logo upload
+            if ($request->hasFile('customize_logo')) {
+                $previewName = time().'.'.$request->file('customize_logo')->extension();
+                $request->file('customize_logo')->move(public_path('images/customize_logo'), $previewName);
+                $setting->customize_logo = 'images/customize_logo/'.$previewName;
+            }
+
+
+            // Handle bulk order logo upload
+            if ($request->hasFile('bulk_order_logo')) {
+                $previewName = time().'.'.$request->file('bulk_order_logo')->extension();
+                $request->file('bulk_order_logo')->move(public_path('images/bulk_order_logo'), $previewName);
+                $setting->bulk_order_logo = 'images/bulk_order_logo/'.$previewName;
+            }
+
             $setting->save();
             $message = $id ? 'Site settings updated successfully!' : 'Site settings created successfully!';
             return redirect()->back()->with('success', $message);

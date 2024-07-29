@@ -26,5 +26,8 @@ class SiteSetting extends Model
             'instagram_link',
             'youtube_link',
             'whatsapp_link',
+            'customize_logo',
+            'customize_link',
+            'bulk_order_logo',
         ];
 }

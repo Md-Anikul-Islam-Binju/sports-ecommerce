@@ -9,7 +9,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <form method="POST" action="{{ route('user.login.post') }}">
+                <form method="POST" action="{{ route('user.login.account') }}">
                     @csrf
                     <h2 class="title text-center">User Login</h2>
                     <div class="row">

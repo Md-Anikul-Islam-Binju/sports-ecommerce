@@ -288,76 +288,35 @@
             </div>
         </div>
     </section>
-    <section class="get_our_customize_wrapper">
-        <div class="container">
-            <a href="{{route('frontend.customize.product')}}">
-                <div class="get_our_customize" data-aos="fade-up">
-                    <img
-                        src="{{URL::to('frontend/images/get-our-customize.png')}}"
-                        class="img-fluid"
-                        draggable="false"
-                        alt=""
-                    />
-                </div>
+    @if(!empty($siteSetting))
+        <section class="get_our_customize_wrapper">
+            <div class="container">
+                <a href="{{$siteSetting->customize_link	 ? $siteSetting->customize_link	:''}}">
+                    <div class="get_our_customize" data-aos="fade-up">
+                        <img
+                            src="{{asset($siteSetting? $siteSetting->customize_logo:'' )}}"
+                            class="img-fluid"
+                            draggable="false"
+                            alt=""
+                        />
+                    </div>
+                </a>
                 <!-- Bulk Order -->
-                <div class="bulk_order_jersey" data-aos="fade-up">
-                    <img
-                        src="{{URL::to('frontend/images/bulk-order.png')}}"
-                        class="img-fluid"
-                        draggable="false"
-                        alt=""
-                    />
-                </div>
-            </a>
-        </div>
+                <a href="{{route('frontend.bulk.product')}}">
+                    <div class="bulk_order_jersey" data-aos="fade-up">
+                        <img
+                            src="{{asset($siteSetting? $siteSetting->bulk_order_logo:'' )}}"
+                            class="img-fluid"
+                            draggable="false"
+                            alt=""
+                        />
+                    </div>
+                </a>
+            </div>
+        </section>
+    @endif
 
-    </section>
 
-{{--<script>--}}
-{{--    document.addEventListener('DOMContentLoaded', function () {--}}
-{{--        const sizeRadios = document.querySelectorAll('input[name="available_size"]');--}}
-{{--        sizeRadios.forEach(radio => {--}}
-{{--            radio.addEventListener('change', function () {--}}
-{{--                document.getElementById('size_id').value = this.value;--}}
-{{--            });--}}
-{{--        });--}}
-
-{{--        const decrementButton = document.getElementById('decrement');--}}
-{{--        const incrementButton = document.getElementById('increment');--}}
-{{--        const quantityInput = document.getElementById('quantity');--}}
-
-{{--        decrementButton.addEventListener('click', function () {--}}
-{{--            let currentValue = parseInt(quantityInput.value);--}}
-{{--            if (currentValue > 1) {--}}
-{{--                quantityInput.value = currentValue - 1;--}}
-{{--            }--}}
-{{--        });--}}
-
-{{--        incrementButton.addEventListener('click', function () {--}}
-{{--            let currentValue = parseInt(quantityInput.value);--}}
-{{--            let newValue = currentValue + 1;--}}
-{{--            quantityInput.value = newValue;--}}
-{{--        });--}}
-
-{{--        const addToCartForm = document.getElementById('addToCartForm');--}}
-{{--        addToCartForm.addEventListener('submit', function (event) {--}}
-{{--            event.preventDefault();--}}
-
-{{--            let sizeId = document.querySelector('input[name="available_size"]:checked');--}}
-{{--            let qty = parseInt(document.getElementById('quantity').value);--}}
-
-{{--            if (sizeId === null) {--}}
-{{--                alert('Please select a size.');--}}
-{{--                return;--}}
-{{--            }--}}
-
-{{--            document.getElementById('size_id').value = sizeId.value;--}}
-{{--            document.getElementById('cart_qty').value = qty;--}}
-
-{{--            this.submit();--}}
-{{--        });--}}
-{{--    });--}}
-{{--</script>--}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const stock = {{ $product->available_stock }};

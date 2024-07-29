@@ -49,8 +49,10 @@ Route::get('/order/success/gust/{order}/{password}', [OrderController::class, 'g
 
 //user login
 Route::get('/user/login', [UserController::class, 'userLogin'])->name('user.login');
-//user login post
+//user login Modal
 Route::post('/user/login', [UserController::class, 'userLoginPost'])->name('user.login.post');
+//user login own account
+Route::post('/user/login/account', [UserController::class, 'userLoginAccount'])->name('user.login.account');
 //user register
 Route::get('/user/register', [UserController::class, 'userRegister'])->name('user.register');
 //user register post
@@ -73,8 +75,7 @@ Route::get('/about-us', [OthersController::class, 'aboutUs'])->name('user.about.
 Route::post('/wishlist/toggle', [WishlistController::class, 'toggleWishlist'])->name('wishlist.toggle');
 Route::get('/wishlist', [WishlistController::class, 'wishlist'])->name('wishlist');
 //customized product
-Route::get('/customize-product', [ProductManageController::class, 'customizeProduct'])->name('frontend.customize.product');
-
+Route::get('/bulk-product', [ProductManageController::class, 'bulkProduct'])->name('frontend.bulk.product');
 
 
 Route::middleware(['auth'])->group(function () {

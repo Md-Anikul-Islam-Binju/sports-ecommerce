@@ -71,6 +71,21 @@ class UserController extends Controller
         ]);
     }
 
+    public function userLoginAccount(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('user.my.profile');
+        }
+        return redirect()->back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
+
     public function userLogout()
     {
         Auth::logout();

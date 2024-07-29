@@ -39,6 +39,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /**
+     * Proud Kit Partner Logo Slider
+     */
+    let proudKitPartner = new Swiper(".proudKitPartner", {
+        cssMode: true,
+        slidesPerView: 3,
+        spaceBetween: 10,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        mousewheel: true,
+        keyboard: true,
+        breakpoints: {
+            640: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+            },
+            768: {
+                slidesPerView: 5,
+                spaceBetween: 30,
+            },
+            1024: {
+                slidesPerView: 8,
+                spaceBetween: 30,
+            },
+        },
+    });
+
+    /**
      * Customer Review Testimonials
      */
     let customerReview = new Swiper(".customerReview", {
@@ -135,4 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let $easyzoom = $(".easyzoom").easyZoom();
 
     handleSizeSelection();
+});
+
+// Right click disable
+document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
 });

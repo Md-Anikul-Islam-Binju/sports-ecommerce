@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductReview;use App\Models\Size;
-use App\Models\SubCategory;use Illuminate\Http\Request;
+use App\Models\SubCategory;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Toastr;
 
 class ProductController extends Controller
@@ -177,6 +181,66 @@ class ProductController extends Controller
         $review = ProductReview::with('product','user')->latest()->get();
         $product = Product::latest()->get();
         return view('admin.pages.product.review', compact('review','product'));
+    }
+
+    public function storeReview(Request $request)
+    {
+        //dd($request->all());
+        // Validate the request data
+        $validatedData = $request->validate([
+            'product_id' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'phone' => 'required',
+            'profile' => 'nullable|file|mimes:jpg,jpeg,png',
+            'details' => 'required',
+            'ratting' => 'required',
+        ]);
+        // Generate a random password
+        $generatedPassword = Str::random(8);
+
+        // Create or update the user
+        if ($request->email) {
+            $user = User::updateOrCreate(
+                ['email' => $request->email],
+                [
+                    'name' => $request->name,
+                    'phone' => $request->phone,
+                    'address' => 'Dhaka,Bangladesh',
+                    'password' => Hash::make($generatedPassword),
+                    'role' => 'user',
+                ]
+            );
+        } else {
+            $email = strtolower(str_replace(' ', '.', $request->name)) . '@gmail.com';
+            $user = User::create([
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'address' => 'Dhaka,Bangladesh',
+                'email' => $email,
+                'password' => Hash::make($generatedPassword),
+                'role' => 'user',
+            ]);
+        }
+
+        // Handle file upload for profile if exists
+        if ($request->hasFile('profile')) {
+            $file = time() . '.' . $request->profile->extension();
+            $request->profile->move(public_path('images/profile'), $file);
+            $user->profile = $file;
+        }
+
+        // Create the product review
+        ProductReview::create([
+            'product_id' => $request->product_id,
+            'user_id' => $user->id,
+            'ratting' => $request->ratting,
+            'details' => $request->details,
+            'status' => 1, // or 'approved' based on your requirement
+        ]);
+
+        // Redirect or return response
+        return redirect()->back()->with('success', 'Review submitted successfully!');
     }
 
     public function reviewStatusUpdate(Request $request, $id)

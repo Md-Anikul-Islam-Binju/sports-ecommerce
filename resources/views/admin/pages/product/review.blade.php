@@ -112,13 +112,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="#" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.review.store')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="example-select" class="form-label">Product</label>
-                                    <select name="product_id " class="form-select">
+                                    <select name="product_id" class="form-select">
                                         <option selected>Select Product For Review</option>
                                         @foreach($product as $productData)
                                             <option value="{{$productData->id}}">{{$productData->name}}</option>

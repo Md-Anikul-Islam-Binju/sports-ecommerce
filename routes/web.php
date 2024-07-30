@@ -156,6 +156,7 @@ Route::middleware(['auth'])->group(function () {
 
         //message
         Route::get('/message', [UserMessageManageController::class, 'message'])->name('admin.message');
+        Route::post('/review-store',[ProductController::class, 'storeReview'])->name('admin.review.store');
     });
 
     Route::middleware(['user'])->prefix('user')->group(function () {

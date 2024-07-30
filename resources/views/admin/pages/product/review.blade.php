@@ -1,6 +1,35 @@
 @extends('admin.app')
 @section('admin_content')
     {{-- CKEditor CDN --}}
+    <style>
+        /* Customer review */
+        .star-rating__wrap {
+            display: flex;
+            justify-content: start;
+            gap: 40px;
+            align-items: center;
+            flex-direction: row-reverse;
+            margin-bottom: 10px;
+        }
+        .star-rating__ico {
+            float: left;
+            padding-left: 2px;
+            cursor: pointer;
+            color: #72bf44;
+            font-size: 35px;
+        }
+        .star-rating__ico:last-child {
+            padding-left: 0;
+        }
+        .star-rating__input {
+            display: none;
+        }
+        .star-rating__ico:hover:before,
+        .star-rating__ico:hover ~ .star-rating__ico:before,
+        .star-rating__input:checked ~ .star-rating__ico:before {
+            content: "\F586";
+        }
+    </style>
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
@@ -165,6 +194,7 @@
                                 </div>
                             </div>
 
+                            <label for="example-select" class="form-label">Ratting</label>
                             <div class="star-rating__wrap mb-3">
                                 <input
                                     class="star-rating__input"

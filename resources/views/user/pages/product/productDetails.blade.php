@@ -134,40 +134,40 @@
             <div class="swiper customerReview">
                 <div class="swiper-wrapper">
                     @foreach($productReviews as $productReviewsData)
-                     <div class="swiper-slide">
-
-                        <div class="review_item">
-                            <div class="review_img">
-                                @if($productReviewsData->user->profile!=null)
-                                <img
-                                    src="{{asset('images/profile/'.$productReviewsData->user->profile)}}"
-                                    draggable="false"
-                                    class="img-fluid"
-                                    alt=""
-                                />
-                                @else
-                                <img
-                                    src="{{URL::to('images/default/pro.jpg')}}"
-                                    draggable="false"
-                                    class="img-fluid"
-                                    alt=""
-                                />
-                                @endif
+                        <div class="swiper-slide">
+                            <div class="review_item">
+                                <div class="review_img">
+                                    @if($productReviewsData->user->profile!=null)
+                                        <img
+                                            src="{{asset('images/profile/'.$productReviewsData->user->profile)}}"
+                                            draggable="false"
+                                            class="img-fluid"
+                                            alt=""
+                                        />
+                                    @else
+                                        <img
+                                            src="{{URL::to('images/default/pro.jpg')}}"
+                                            draggable="false"
+                                            class="img-fluid"
+                                            alt=""
+                                        />
+                                    @endif
+                                </div>
+                                <h2>{{$productReviewsData->user->name}}</h2>
+                                <ul>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <li>
+                                            <i class="bi {{ $i <= $productReviewsData->ratting ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                        </li>
+                                    @endfor
+                                </ul>
+                                <p>
+                                    {{$productReviewsData->details}}
+                                </p>
                             </div>
-                            <h2>{{$productReviewsData->user->name}}</h2>
-                            <ul>
-                                @for ($i = 1; $i <= 5; $i++)
-                                <li>
-                                    <i class="bi {{ $i <= $productReviewsData->ratting ? 'bi-star-fill' : 'bi-star' }}"></i>
-                                </li>
-                                @endfor
-                            </ul>
-                            <p>
-                               {{$productReviewsData->details}}
-                            </p>
                         </div>
-                    </div>
                     @endforeach
+
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>

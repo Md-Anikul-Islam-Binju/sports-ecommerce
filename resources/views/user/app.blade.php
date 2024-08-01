@@ -416,6 +416,8 @@
             <i class="bi bi-arrow-up-short"></i>
         </a>
 
+        <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=66aa01ff566923001d52f0f0&product=inline-share-buttons&source=platform" async="async"></script>
+
         <script src="{{
                 asset('frontend/plugin/jquery/jquery-3.5.1.min.js')
             }}"></script>
@@ -430,5 +432,6 @@
                 asset('frontend/plugin/easyzoom/easyzoom.js')
             }}"></script>
         <script src="{{ asset('frontend/js/main.js') }}"></script>
+
     </body>
 </html>

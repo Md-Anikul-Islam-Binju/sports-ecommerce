@@ -115,14 +115,20 @@
                                     </div>
                                     @endif
                                     @endforeach
+                                    <br>
+                                    <div class="sharethis-inline-share-buttons"></div>
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </section>
+
 	<!-- Happy Customer -->
     <section class="happy_customer_wrapper">
         <div class="container">

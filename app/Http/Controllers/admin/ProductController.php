@@ -253,6 +253,22 @@ class ProductController extends Controller
             $review->update([
                 'status' => $request->status,
             ]);
+
+            // Check if profile file is included in the request
+            if ($request->hasFile('profile')) {
+                // Fetch the user associated with the review
+                $user = User::findOrFail($review->user_id);
+
+                // Generate a unique filename for the profile image
+                $file = time() . '.' . $request->profile->extension();
+
+                // Move the uploaded file to the public/images/profile directory
+                $request->profile->move(public_path('images/profile'), $file);
+
+                // Update the user's profile field with the new filename
+                $user->profile = $file;
+                $user->save();
+            }
             Toastr::success('Review updated successfully', 'Success');
             return redirect()->back();
         } catch (\Exception $e) {

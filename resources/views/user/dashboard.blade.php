@@ -243,25 +243,26 @@
     </div>
 </section>
 <!-- Kit Partner -->
+<!-- Kit Partner -->
 <section class="kit_partner_wrapper">
     <div class="container">
         <div class="kit_partner">
             <h2>Proud Kit Partner</h2>
-            <div class="partner_logo_wrap">
-                @foreach($partner as $partnerData)
-                <div
-                    class="logo_item"
-                    data-aos="fade-up"
-                    data-aos-delay="{{ $loop->iteration * 50}}"
-                >
-                    <img
-                        draggable="false"
-                        src="{{asset('images/partner/'. $partnerData->image )}}"
-                        class="img-fluid"
-                        alt=""
-                    />
+            <div class="partner_logo_wrap swiper proudKitPartner">
+                <div class="swiper-wrapper">
+                    @foreach($partner as $partnerData)
+                        <div class="logo_item swiper-slide">
+                            <img
+                                draggable="false"
+                                src="{{asset('images/partner/'. $partnerData->image )}}"
+                                class="img-fluid"
+                                alt=""
+                            />
+                        </div>
+                    @endforeach
                 </div>
-                @endforeach
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </div>

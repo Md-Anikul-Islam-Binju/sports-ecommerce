@@ -105,6 +105,13 @@
                                                                class="form-control">{{$reviewData->details}}</textarea>
                                                     </div>
                                                 </div>
+
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="example-fileinput" class="form-label">Profile</label>
+                                                        <input type="file" name="profile" id="example-fileinput" class="form-control">
+                                                    </div>
+                                                </div>
                                             </div>
                                              <div class="col-12">
                                                 <div class="mb-3">

@@ -1,5 +1,12 @@
 @extends('user.app')
 @section('content')
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $product->name }}">
+    <meta property="og:description" content="{{ strip_tags($product->details) }}">
+    <meta property="og:image" content="{{ URL::to('images/product/' . json_decode($product->image)[0]) }}">
+    <meta property="og:url" content="{{ Request::url() }}">
+    <meta property="og:site_name" content="Wings">
+
     <section class="product_details_block_wrap">
         <div class="container">
             <div class="row">
